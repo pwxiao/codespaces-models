@@ -45,7 +45,7 @@ while True:
     s = input("问：")
     messages.append(UserMessage(content=s))
     response = client.complete(
-        messages,
+        messages=messages,
         model= "gpt-4o-mini",
         temperature=1.,
         max_tokens=1000,

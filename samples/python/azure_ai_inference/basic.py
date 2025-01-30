@@ -26,16 +26,30 @@ client = ChatCompletionsClient(
     credential=AzureKeyCredential(token),
 )
 
-response = client.complete(
-    messages=[
-        SystemMessage(content="You are a helpful assistant."),
-        UserMessage(content="What is the capital of France?"),
-    ],
-    model=model_name,
-    # Optional parameters
-    temperature=1.,
-    max_tokens=1000,
-    top_p=1.    
-)
+# response = client.complete(
+#     messages=[
 
-print(response.choices[0].message.content)
+#         UserMessage(content="中国的首都在哪"),
+#     ],
+#     model=model_name,
+
+#     # Optional parameters
+#     temperature=1.,
+#     max_tokens=1000,
+#     top_p=1.    
+# )
+messages = [
+            SystemMessage(content="You are a helpful assistant.")
+]
+while True:
+    s = input("问：")
+    messages.append(UserMessage(content=s))
+    response = client.complete(
+        messages,
+        model= "gpt-4o-mini",
+        temperature=1.,
+        max_tokens=1000,
+        top_p=1.   
+    )
+    print(f"答：{response.choices[0].message.content}")
+    
